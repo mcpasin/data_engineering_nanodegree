@@ -25,7 +25,11 @@ For each of thes steps the idea is to create custom operators in Airflow that pe
 
 
 
-The following grapsh show the final DAG configuration:
+The following grapsh show the final DAG configuration:  
+
+![airflow_dag_graph_view](airflow_dag_graph_view.png)
+
+![airflow_dag_graph_view](airflow_dag_tree_view.png)
 
 
 
