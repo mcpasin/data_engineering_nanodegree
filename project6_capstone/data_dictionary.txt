@@ -1,0 +1,75 @@
+fact_immigration
+Primary key: immigration_id
+ |-- immigration_id (double): unique identifier for each immigrant/traveler
+ |-- citizenship_country (string): country of citizenship of the immigrant
+ |-- residence_country (string): country of residence of the immigrant
+ |-- port (string): arrival airport code
+ |-- arrival_date (date): arrival date in the USA
+ |-- arrival_mode (string): how the immigrant arrived (air/sea/land)
+ |-- us_state (string): US state of the entry port where the immigrant arrived
+ |-- departure_date (date): departure date from the USA
+ |-- respondent_age (double): immigrant's age
+ |-- visa (string): visa. There are 3 categories(Business/Pleasure/Student)
+ |-- date_added (string): date added to I-94 Files - CIC does not use
+ |-- visa_issued_department (string): department of state where where visa was issued
+ |-- occupation (string): occupation that will be performed in US
+ |-- arrival_flag (string): arrival flag - admitted or paroled into the U.S.
+ |-- departure_flag (string): departure flag - Departed, lost I-94 or is deceased 
+ |-- update_flag (string): update flag - either apprehended, overstayed, adjusted to perm residence
+ |-- match_arrival_departure_fag (string): match flag - match of arrival and departure records
+ |-- birth_year (double): 4 digit year of birth of the immigrant
+ |-- allowed_to_stay_date (string): date until which the immigrant is allowed to stay
+ |-- ins_number (string): INS number
+ |-- airline (string): airline used to arrive in the US
+ |-- admission_number (double): admission number (should be also unique identifier)
+ |-- flight_number (string): airline's flight number 
+ |-- visa_type (string): detailed visa type (B1,B2,E2, etc.)
+ 
+ 
+dim_time
+Primary key: date
+ |-- date (string): date in the format yyyy-mm-dd. All arrival and departure dates from fact_immigration table are available.
+ |-- day (integer): day for the given date, useful for aggregation
+ |-- week (integer): week for the given date, useful for aggregation
+ |-- month (integer): month for the given date, useful for aggregation
+ |-- year (integer): year for the given date, useful for aggregation
+ 
+ 
+dim_airports
+Primary key: ident
+  |--ident (string): unique identifier for the airport
+  |--type (string): type of airport (large/medium/small)
+  |--name (string): name of the airport
+  |--elevation_ft (string): elevation of the airport
+  |--iso_country (string): iso code of the country where the airport is located
+  |--municipality (string): name of the city where the airport is located, or possibly the closest one. Can be used to join with other tables having the city field
+  |--gps_code (string): location gps
+  |--iata_code (string): airport iata location identifier code
+  |--local_code (string): airport local code
+  |--latitude (double): location latitude
+  |--longitude (double): location longitude
+  |--state (string): state code where the airport is located
+
+
+dim_cities_demographics
+Primary key: city, state_code, race
+  |--city (string): name of the city
+  |--state_name (string): name of the US state
+  |--median_age (double): median age
+  |--male_population (string): size of male population
+  |--female_population(string): size of female population
+  |--number_veterans (double): number of veterans
+  |--foreign_born (string): number of foreign born
+  |--avg_household_size (double): average size of a household
+  |--race (string): race of the citizen
+  |--count (double): number of respondants
+  |--state_code (string): US state code
+
+
+dim_world_temperature
+Primary key: date, city, country
+ |-- date (string): date when the temperature was observed
+ |-- city (string): city where the termperature was observed
+ |-- avg_temperature (double): average temperature observed for the day in the specified city and country
+ |-- avg_temperature_uncertainty (double): average uncertainty observed 
+ |-- country (string): country where city is located
